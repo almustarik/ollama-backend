@@ -7,9 +7,6 @@ WORKDIR /app
 # Expose the Ollama API port
 EXPOSE 11434
 
-# Ensure the Llama 3 model is pulled during build
-RUN ollama pull llama3
-
-# Ensure Ollama is correctly started with Llama 3
+# Start Ollama and load Llama 3 on container startup
 ENTRYPOINT ["ollama"]
 CMD ["serve"]

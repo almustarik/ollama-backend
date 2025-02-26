@@ -1,15 +1,38 @@
+# services:
+#   - name: ollama-service
+#     type: web
+#     repo: https://github.com/almustarik/ollama-backend
+#     branch: main
+#     env: docker
+#     plan: free
+#     autoDeploy: true
+#     envVars:
+#       - key: PORT
+#         value: '11434'
+#     disk:
+#       name: ollama-cache
+#       mountPath: /root/.ollama
+#       sizeGB: 5
+# startCommand: |
+#       ollama serve & sleep 3 &&
+#       ollama pull llama3 && tail -f /dev/null
+
 services:
   - name: ollama-service
     type: web
-    repo: https://github.com/almustarik/ollama-backend
-    branch: main
-    env: docker
-    plan: free
-    autoDeploy: true
+    runtime: docker
+    repo: https://github.com/almustarik/ollama-backend # Change this to your repo
+    region: oregon # Change if needed
+    plan: free # Use "starter" for better performance
     envVars:
       - key: PORT
         value: '11434'
+    dockerfilePath: ./Dockerfile
     disk:
-      name: ollama-cache
+      name: ollama-data
       mountPath: /root/.ollama
       sizeGB: 5
+    startCommand: |
+      ollama serve & sleep 3 &&
+      ollama pull llama3 && tail -f /dev/null
+    healthCheckPath: /
