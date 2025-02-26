@@ -17,25 +17,39 @@
 #       ollama serve & sleep 3 &&
 #       ollama pull llama3 && tail -f /dev/null
 
+# services:
+#   - name: ollama-service
+#     type: web
+#     runtime: docker
+#     repo: https://github.com/almustarik/ollama-backend # Change this to your repo
+#     region: oregon # Change if needed
+#     plan: free # Use "starter" for better performance
+#     envVars:
+#       - key: PORT
+#         value: '11434'
+#     dockerfilePath: ./Dockerfile
+#     disk:
+#       name: ollama-data
+#       mountPath: /root/.ollama
+#       sizeGB: 5
+#     startCommand: |
+#       ollama serve & sleep 3 &&
+#       ollama pull gemma:2b &&
+#       echo "Installed models:" &&
+#       ollama list &&
+#       tail -f /dev/null
+#     healthCheckPath: /
 services:
-  - name: ollama-service
-    type: web
-    runtime: docker
-    repo: https://github.com/almustarik/ollama-backend # Change this to your repo
-    region: oregon # Change if needed
-    plan: free # Use "starter" for better performance
-    envVars:
-      - key: PORT
-        value: '11434'
+  - type: web
+    name: ollama-gemma
+    env: docker
+    repo: https://github.com/almustarik/ollama-backend
+    plan: free
     dockerfilePath: ./Dockerfile
-    disk:
-      name: ollama-data
-      mountPath: /root/.ollama
-      sizeGB: 5
-    startCommand: |
-      ollama serve & sleep 3 &&
-      ollama pull gemma:2b &&
-      echo "Installed models:" &&
-      ollama list &&
-      tail -f /dev/null
     healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: "PORT"
+        value: "11434"
+      - key: "OLLAMA_DEFAULT_MODEL"
+        value: "gemma:2b"

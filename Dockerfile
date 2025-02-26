@@ -8,5 +8,6 @@ WORKDIR /app
 EXPOSE 11434
 
 # Start Ollama and load Llama 3 on container startup
-ENTRYPOINT ["ollama"]
-CMD ["serve"]
+# ENTRYPOINT ["ollama"]
+# CMD ["serve"]
+CMD ["sh", "-c", "ollama serve & sleep 5 && ollama pull gemma:2b && tail -f /dev/null"]
