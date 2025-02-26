@@ -1,7 +1,7 @@
 services:
   - name: ollama-service
     type: web
-    repo: https://github.com/your-repo-name
+    repo: https://github.com/almustarik/ollama-backend
     branch: main
     env: docker
     plan: free
