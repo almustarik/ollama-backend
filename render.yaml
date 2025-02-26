@@ -16,8 +16,6 @@
 # startCommand: |
 #       ollama serve & sleep 3 &&
 #       ollama pull llama3 && tail -f /dev/null
-      # ollama serve & sleep 3 &&
-      # ollama pull llama3 &&
 
 services:
   - name: ollama-service
@@ -27,9 +25,6 @@ services:
     region: oregon # Change if needed
     plan: free # Use "starter" for better performance
     envVars:
-      - key: "OLLAMA_MODEL"
-        value: "llama3"
-    envVars:
       - key: PORT
         value: '11434'
     dockerfilePath: ./Dockerfile
@@ -37,9 +32,10 @@ services:
       name: ollama-data
       mountPath: /root/.ollama
       sizeGB: 5
-    # startCommand: |
-    #   echo "Installed models:" &&
-    #   ollama list &&
-    #   tail -f /dev/null
+    startCommand: |
+      ollama serve & sleep 3 &&
+      ollama pull gemma:2b &&
+      echo "Installed models:" &&
+      ollama list &&
+      tail -f /dev/null
     healthCheckPath: /
-    autoDeploy: true
