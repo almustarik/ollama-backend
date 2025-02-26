@@ -37,9 +37,9 @@ services:
       name: ollama-data
       mountPath: /root/.ollama
       sizeGB: 5
-    startCommand: |
-      echo "Installed models:" &&
-      ollama list &&
-      tail -f /dev/null
+    # startCommand: |
+    #   echo "Installed models:" &&
+    #   ollama list &&
+    #   tail -f /dev/null
     healthCheckPath: /
     autoDeploy: true
