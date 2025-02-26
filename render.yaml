@@ -16,6 +16,8 @@
 # startCommand: |
 #       ollama serve & sleep 3 &&
 #       ollama pull llama3 && tail -f /dev/null
+      # ollama serve & sleep 3 &&
+      # ollama pull llama3 &&
 
 services:
   - name: ollama-service
@@ -36,8 +38,6 @@ services:
       mountPath: /root/.ollama
       sizeGB: 5
     startCommand: |
-      ollama serve & sleep 3 &&
-      ollama pull llama3 &&
       echo "Installed models:" &&
       ollama list &&
       tail -f /dev/null
