@@ -1,0 +1,12 @@
+services:
+  - name: ollama-service
+    type: web
+    repo: https://github.com/your-repo-name
+    branch: main
+    env: docker
+    plan: free
+    autoDeploy: true
+    disk:
+      name: ollama-cache
+      mountPath: /root/.ollama
+      sizeGB: 5
