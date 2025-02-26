@@ -1,8 +1,12 @@
-# Use an official Ollama base image
+# Use the official Ollama base image
 FROM ollama/ollama:latest
 
-# Expose the port for Ollama API
+# Set the working directory (optional)
+WORKDIR /app
+
+# Expose the Ollama API port
 EXPOSE 11434
 
-# Start Ollama when the container runs
-CMD ["ollama", "serve"]
+# Ensure Ollama is correctly started as an entrypoint
+ENTRYPOINT ["ollama"]
+CMD ["serve"]
